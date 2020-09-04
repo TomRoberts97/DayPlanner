@@ -16,8 +16,8 @@ public class CustomArrayAdapter extends RecyclerView.Adapter<CustomArrayAdapter.
     private OnItemClickListener myOnItemCLickListener;
 
     public interface OnItemClickListener{
-        void OnItemClick(int postion);
-
+        void OnItemClick(int position);
+        void OnDeleteClick(int position);
 
     }
     public void setOnItemCLickListener(OnItemClickListener onItemCLickListener){
@@ -30,6 +30,8 @@ public class CustomArrayAdapter extends RecyclerView.Adapter<CustomArrayAdapter.
         public TextView startTimeTV;
         public TextView endTimeTV;
         public TextView descriptionHeaderTV;
+        public ImageView myDeleteImage;
+
 
         public MyViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
@@ -38,6 +40,7 @@ public class CustomArrayAdapter extends RecyclerView.Adapter<CustomArrayAdapter.
             startTimeTV = itemView.findViewById(R.id.startTimeTextView);
             endTimeTV = itemView.findViewById(R.id.endTimeTextView);
             descriptionHeaderTV = itemView.findViewById(R.id.descriptionHeaderTextView);
+            myDeleteImage = itemView.findViewById(R.id.image_delete);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -46,6 +49,17 @@ public class CustomArrayAdapter extends RecyclerView.Adapter<CustomArrayAdapter.
                         int position = getAdapterPosition();
                         if(position != RecyclerView.NO_POSITION){
                             listener.OnItemClick(position);
+                        }
+                    }
+                }
+            });
+            myDeleteImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(listener != null){
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION){
+                            listener.OnDeleteClick(position);
                         }
                     }
                 }

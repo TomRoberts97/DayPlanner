@@ -47,16 +47,24 @@
             />
 
         <TextView
+            android:id="@+id/descriptionHeaderTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:layout_marginEnd="71dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginEnd="109dp"
+            android:layout_marginTop="29dp"
             android:text="DesciptionHeader"
             android:textColor="@android:color/black"
-            android:textSize="14sp"
-            android:id="@+id/descriptionHeaderTextView"/>
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/image_delete"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_delete" />
 
     </RelativeLayout>
 

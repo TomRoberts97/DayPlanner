@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CustomDialog.CustomDialogListener{
 
     @Override //Menu creation
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -38,9 +38,10 @@ public class MainActivity extends AppCompatActivity {
         }
          return false;*/
 
-            insertItem();
 
+            //insertItem();
 
+            openDialog();
 
 
         return false;
@@ -97,6 +98,11 @@ public class MainActivity extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(), "selected", Toast.LENGTH_LONG).show();
             }
+
+            @Override
+            public void OnDeleteClick(int position) {
+                removeItem(position);
+            }
         });
     }
 
@@ -104,16 +110,34 @@ public class MainActivity extends AppCompatActivity {
 
         timeSlotList.add(new TimeSlot("10:00","12:00", "Work", "New Item", "des body","03/09/2020"));
         mAdapter.notifyItemInserted(timeSlotList.size() +1 );
-        //mAdapter.notifyDataSetChanged();// without animation
+
+        //mAdapter.notifyDataSetChanged();// without animation which i cant see anyway cos its at the bottom of the view
+        // could try to implement in time order inserting , so the time slots will be in order no matter what
     }
 
-    public void removeItem(){
+    public void insertItem(String startTime, String endTime){
+
+        timeSlotList.add(new TimeSlot(startTime,endTime, "Work", "New Item", "des body","03/09/2020"));
+        mAdapter.notifyItemInserted(timeSlotList.size() +1 );
+
+        //mAdapter.notifyDataSetChanged();// without animation which i cant see anyway cos its at the bottom of the view
+        // could try to implement in time order inserting , so the time slots will be in order no matter what
+    }
+
+    public void removeItem(int position){
         // both methods need an index/postion number
-        // this will be attained once OnLongClick has be worked out
-        //timeSlotList.remove();
-        //mAdapter.notifyItemRemoved();
+        // this will be attained once OnLongClick has been worked out
+        timeSlotList.remove(position);
+        mAdapter.notifyItemRemoved(position);
     }
 
+    public void openDialog(){
+        CustomDialog customDialog = new CustomDialog();
+        customDialog.show(getSupportFragmentManager(), "customDialog");
+    }
 
-
+    @Override
+    public void applyTexts(String startTime, String endTime) {
+        insertItem(startTime, endTime);
+    }
 }
