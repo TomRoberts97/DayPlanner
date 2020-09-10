@@ -7,4 +7,12 @@
         <item name="colorAccent">#717171</item>
     </style>
 
+    <style name="FullScreenDialogTheme" parent="Theme.AppCompat.Light.DialogWhenLarge">
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="windowNoTitle">true</item>
+<!--        <item name="android:windowAnimationStyle"></item>-->
+    </style>
+
+
+
 </resources>

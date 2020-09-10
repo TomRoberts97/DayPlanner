@@ -13,14 +13,21 @@ import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
+import androidx.fragment.app.DialogFragment;
 
-public class CustomDialog extends AppCompatDialogFragment {
+public class CustomDialog extends DialogFragment {
+//public class CustomDialog extends AppCompatDialogFragment {
 
     private EditText editTextStartTime;
     private EditText editTextEndTime;
     private Spinner spinnerTimeSlotType;
     private CustomDialogListener listener;
 
+/*    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setStyle(DialogFragment.STYLE_NORMAL,R.style.FullScreenDialogTheme);
+    }*/
 
     @NonNull
     @Override

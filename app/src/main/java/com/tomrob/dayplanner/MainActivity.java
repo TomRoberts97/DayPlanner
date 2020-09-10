@@ -1,10 +1,12 @@
 package com.tomrob.dayplanner;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -30,21 +32,18 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
         super.onOptionsItemSelected(item);
 
         // code for switching activites when add is clicked
-      /* if (item.getItemId() == R.id.add_note){
-            Intent intent = new Intent(getApplicationContext(), NoteEditorActivity.class);
+       if (item.getItemId() == R.id.add_time_slot){
+            Intent intent = new Intent(getApplicationContext(), AddTimeSlotActivity.class);
 
             startActivity(intent);
             return true;
         }
-         return false;*/
+         return false;
 
 
             //insertItem();
-
-            openDialog();
-
-
-        return false;
+            //openDialog();
+            //return false;
     }
 
 
@@ -100,8 +99,24 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
             }
 
             @Override
-            public void OnDeleteClick(int position) {
-                removeItem(position);
+            public void OnDeleteClick(final int position) {
+
+                new AlertDialog.Builder(MainActivity.this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Are you sure?")
+                        .setMessage("Do you want to delete this time slot?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                removeItem(position);
+
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+
+
+
             }
         });
     }
