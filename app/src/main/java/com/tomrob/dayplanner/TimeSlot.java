@@ -2,6 +2,8 @@ package com.tomrob.dayplanner;
 
 import java.util.Date;
 
+import androidx.annotation.NonNull;
+
 public class TimeSlot {
 
     String startTime;
@@ -42,5 +44,11 @@ public class TimeSlot {
 
     public String getDate() {
         return date;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return this.startTime + this.endTime + this.timeSlotType  + this.descriptionHeader + this.descriptionBody + this.date;
     }
 }

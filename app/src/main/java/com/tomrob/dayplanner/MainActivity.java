@@ -14,9 +14,19 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.sql.Time;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements CustomDialog.CustomDialogListener{
+
+
+
+    static ArrayList<TimeSlot> timeSlotList;
+
+    private RecyclerView mRecyclerView;
+    static CustomArrayAdapter mAdapter;
+    private RecyclerView.LayoutManager mlayoutManager;
+
 
     @Override //Menu creation
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -47,12 +57,6 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
     }
 
 
-    static ArrayList<TimeSlot> timeSlotList;
-
-    private RecyclerView mRecyclerView;
-    private CustomArrayAdapter mAdapter;
-    private RecyclerView.LayoutManager mlayoutManager;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
         timeSlotList.add(new TimeSlot("09:00","10:00", "Work", "App UI Design", "des body","03/09/2020"));
         timeSlotList.add(new TimeSlot("10:00","12:00", "Work", "App Save implementation", "des body","03/09/2020"));
         timeSlotList.add(new TimeSlot("13:00","14:00", "Work", "Chest workout", "des body","03/09/2020"));
+        insertItem(new TimeSlot("13:99","14:99", "Work", "Chest workout", "des body","03/09/2020"));
     }
 
     public void buildRecyclerView(){
@@ -121,18 +126,26 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
         });
     }
 
-    public void insertItem(){
+    public static void insertItem(TimeSlot timeSlot){
+        mAdapter = new CustomArrayAdapter(timeSlotList);
+        timeSlotList.add(timeSlot);
+        //mAdapter.notifyDataSetChanged();
+        mAdapter.notifyItemInserted(timeSlotList.size() +1 );
 
-        timeSlotList.add(new TimeSlot("10:00","12:00", "Work", "New Item", "des body","03/09/2020"));
+    }
+
+    public static void insertItem(String startTime, String endTime){
+
+        timeSlotList.add(new TimeSlot(startTime,endTime, "Work", "New Item", "des body","03/09/2020"));
         mAdapter.notifyItemInserted(timeSlotList.size() +1 );
 
         //mAdapter.notifyDataSetChanged();// without animation which i cant see anyway cos its at the bottom of the view
         // could try to implement in time order inserting , so the time slots will be in order no matter what
     }
 
-    public void insertItem(String startTime, String endTime){
+    public static void insertItem(String startTime, String endTime, String timeSlotType, String desHeader,String date){
 
-        timeSlotList.add(new TimeSlot(startTime,endTime, "Work", "New Item", "des body","03/09/2020"));
+        timeSlotList.add(new TimeSlot(startTime,endTime, timeSlotType, desHeader, "Please add more details",date));
         mAdapter.notifyItemInserted(timeSlotList.size() +1 );
 
         //mAdapter.notifyDataSetChanged();// without animation which i cant see anyway cos its at the bottom of the view

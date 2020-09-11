@@ -1,15 +1,11 @@
 <resources>
     <string name="app_name">DayPlanner</string>
 
-<string name="planet_prompt">Choose a planet</string>
+<string name="spinner_prompt">Choose time slot type</string>
 <string-array name="time_slot_type_array">
-    <item>Mercury</item>
-    <item>Venus</item>
-    <item>Earth</item>
-    <item>Mars</item>
-    <item>Jupiter</item>
-    <item>Saturn</item>
-    <item>Uranus</item>
-    <item>Neptune</item>
+    <item>Other</item>
+    <item>Work</item>
+    <item>Workout</item>
+    <item>Meditate</item>
 </string-array>
 </resources>

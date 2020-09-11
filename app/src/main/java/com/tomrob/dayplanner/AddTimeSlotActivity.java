@@ -1,6 +1,7 @@
 package com.tomrob.dayplanner;
 
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -12,15 +13,18 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class AddTimeSlotActivity extends AppCompatActivity {
 
     TimePickerDialog startTimePicker, endTimePicker;
-    EditText editTextStartTime, editTextEndTime;
+    EditText editTextStartTime, editTextEndTime, editTextDesHeader;
     Spinner spinner;
 
     @Override
@@ -30,7 +34,7 @@ public class AddTimeSlotActivity extends AppCompatActivity {
 
 
         spinner = findViewById(R.id.time_slot_type_spinner);
-
+        editTextDesHeader = findViewById(R.id.EditTextDescriptionHeader);
         fillSpinner();
 
 
@@ -107,12 +111,28 @@ public class AddTimeSlotActivity extends AppCompatActivity {
             }
         }); // end of end time picker dialog
 
-
+        // start of add/save button click
         FloatingActionButton floatingActionButton = findViewById(R.id.floating_action_button);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "pressed", Toast.LENGTH_LONG).show();
+
+
+                //Data Validation to be added!!
+                Date date = Calendar.getInstance().getTime();
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                String todayDate = dateFormat.format(date);
+
+                TimeSlot timeSlot = new TimeSlot(editTextStartTime.getText().toString(),editTextEndTime.getText().toString(),spinner.getSelectedItem().toString(),editTextDesHeader.getText().toString(),"Please add more details",todayDate);
+               // something wrong here not adding to recycle view , check if adding to timeSlotList properly, .notifyDataSetChanged() may be broken?
+                MainActivity.timeSlotList.add(timeSlot);
+                MainActivity.mAdapter.notifyDataSetChanged();
+                //MainActivity.insertItem(timeSlot);
+
+                Toast.makeText(getApplicationContext(), "Time Slot added!" + timeSlot.toString() , Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
             }
         });
 

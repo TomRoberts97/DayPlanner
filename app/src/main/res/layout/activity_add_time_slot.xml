@@ -93,7 +93,9 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="218dp"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:prompt="@string/spinner_prompt"
+        android:spinnerMode="dialog"/>
 
     <TextView
         android:id="@+id/TextViewDesHeader"
