@@ -124,10 +124,10 @@ public class AddTimeSlotActivity extends AppCompatActivity {
                 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 String todayDate = dateFormat.format(date);
 
-                //TimeSlot timeSlot = new TimeSlot(editTextStartTime.getText().toString(),editTextEndTime.getText().toString(),spinner.getSelectedItem().toString(),editTextDesHeader.getText().toString(),"Please add more details",todayDate);
+                TimeSlot timeSlot = new TimeSlot(editTextStartTime.getText().toString(),editTextEndTime.getText().toString(),spinner.getSelectedItem().toString(),editTextDesHeader.getText().toString(),"Please add more details",todayDate);
                // something wrong here not adding to recycle view , check if adding to timeSlotList properly, .notifyDataSetChanged() may be broken?
-                TimeSlot test = new TimeSlot("test","test","test","test","test","test");
-                MainActivity.timeSlotList.add(test);
+                //TimeSlot test = new TimeSlot("test","test","test","test","test","test");
+                MainActivity.timeSlotList.add(timeSlot);
                 //MainActivity.mAdapter = new CustomArrayAdapter(MainActivity.timeSlotList);
                 MainActivity.mAdapter.notifyDataSetChanged();
                 //MainActivity.insertItem(test);

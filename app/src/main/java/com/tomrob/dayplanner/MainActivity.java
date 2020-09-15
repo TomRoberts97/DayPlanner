@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity{
            //insertItem(test);
            //mAdapter.updateReceiptsList(timeSlotList);
 
-           Toast.makeText(getApplicationContext(), timeSlotList.get(timeSlotList.size() -1).toString() , Toast.LENGTH_LONG).show();
+           //Toast.makeText(getApplicationContext(), timeSlotList.get(timeSlotList.size() -1).toString() , Toast.LENGTH_LONG).show();
 
            return true;
         }
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onResume() {
         super.onResume();
-        Toast.makeText(getApplicationContext(), "onResume" , Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), "onResume" , Toast.LENGTH_LONG).show();
         //insertItem(new TimeSlot("13:99","14:99", "Work", "Chest workout", "des body","03/09/2020"));
 
         //mAdapter = new CustomArrayAdapter(timeSlotList);
