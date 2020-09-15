@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -69,6 +70,12 @@ public class CustomArrayAdapter extends RecyclerView.Adapter<CustomArrayAdapter.
 
     public CustomArrayAdapter(ArrayList<TimeSlot> itemList){
         timeSlotList = itemList;
+    }
+
+    public void updateReceiptsList(List<TimeSlot> newList) {
+        timeSlotList.clear();
+        timeSlotList.addAll(newList);
+        notifyDataSetChanged();
     }
 
     @NonNull

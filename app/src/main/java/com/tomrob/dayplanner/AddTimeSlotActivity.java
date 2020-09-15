@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -123,13 +124,18 @@ public class AddTimeSlotActivity extends AppCompatActivity {
                 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 String todayDate = dateFormat.format(date);
 
-                TimeSlot timeSlot = new TimeSlot(editTextStartTime.getText().toString(),editTextEndTime.getText().toString(),spinner.getSelectedItem().toString(),editTextDesHeader.getText().toString(),"Please add more details",todayDate);
+                //TimeSlot timeSlot = new TimeSlot(editTextStartTime.getText().toString(),editTextEndTime.getText().toString(),spinner.getSelectedItem().toString(),editTextDesHeader.getText().toString(),"Please add more details",todayDate);
                // something wrong here not adding to recycle view , check if adding to timeSlotList properly, .notifyDataSetChanged() may be broken?
-                MainActivity.timeSlotList.add(timeSlot);
+                TimeSlot test = new TimeSlot("test","test","test","test","test","test");
+                MainActivity.timeSlotList.add(test);
+                //MainActivity.mAdapter = new CustomArrayAdapter(MainActivity.timeSlotList);
                 MainActivity.mAdapter.notifyDataSetChanged();
-                //MainActivity.insertItem(timeSlot);
+                //MainActivity.insertItem(test);
+                //MainActivity.mAdapter.updateReceiptsList(MainActivity.timeSlotList);
 
-                Toast.makeText(getApplicationContext(), "Time Slot added!" + timeSlot.toString() , Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "Time Slot added!" + timeSlot.toString() , Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), MainActivity.timeSlotList.get(MainActivity.timeSlotList.size() -1).toString() , Toast.LENGTH_LONG).show();
+
 
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);

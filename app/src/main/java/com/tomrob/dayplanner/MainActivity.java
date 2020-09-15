@@ -17,11 +17,12 @@ import android.widget.Toast;
 import java.sql.Time;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements CustomDialog.CustomDialogListener{
+public class MainActivity extends AppCompatActivity{
 
 
 
-    static ArrayList<TimeSlot> timeSlotList;
+    static ArrayList<TimeSlot> timeSlotList = new ArrayList<>();
+
 
     private RecyclerView mRecyclerView;
     static CustomArrayAdapter mAdapter;
@@ -43,10 +44,21 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
 
         // code for switching activites when add is clicked
        if (item.getItemId() == R.id.add_time_slot){
-            Intent intent = new Intent(getApplicationContext(), AddTimeSlotActivity.class);
 
+            Intent intent = new Intent(getApplicationContext(), AddTimeSlotActivity.class);
             startActivity(intent);
-            return true;
+
+           // works adding new TimeSlot
+            //TimeSlot test = new TimeSlot("test","test","test","test","test","test");
+            //timeSlotList.add(test);
+           // mAdapter.notifyDataSetChanged();
+
+           //insertItem(test);
+           //mAdapter.updateReceiptsList(timeSlotList);
+
+           Toast.makeText(getApplicationContext(), timeSlotList.get(timeSlotList.size() -1).toString() , Toast.LENGTH_LONG).show();
+
+           return true;
         }
          return false;
 
@@ -62,28 +74,42 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        createTimeSlotList();
-
+        //mRecyclerView = findViewById(R.id.recyclerView);
+        //createTimeSlotList();
+        //insertItem("00:00","11:11");
+        //timeSlotList.add(new TimeSlot("10:00","12:00", "Work", "App Save implementation", "des body","03/09/2020"));
         buildRecyclerView();
 
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Toast.makeText(getApplicationContext(), "onResume" , Toast.LENGTH_LONG).show();
+        //insertItem(new TimeSlot("13:99","14:99", "Work", "Chest workout", "des body","03/09/2020"));
+
+        //mAdapter = new CustomArrayAdapter(timeSlotList);
+       // buildRecyclerView();
+        //mAdapter.notifyDataSetChanged();
+        //mAdapter.updateReceiptsList(timeSlotList);
+        //updateData(timeSlotList);
+    }
 
     public void createTimeSlotList(){
-        timeSlotList = new ArrayList<>();
-        timeSlotList.add(new TimeSlot("09:00","10:00", "Work", "App UI Design", "des body","03/09/2020"));
+
+     /*   timeSlotList.add(new TimeSlot("09:00","10:00", "Work", "App UI Design", "des body","03/09/2020"));
         timeSlotList.add(new TimeSlot("10:00","12:00", "Work", "App Save implementation", "des body","03/09/2020"));
         timeSlotList.add(new TimeSlot("13:00","14:00", "Work", "Chest workout", "des body","03/09/2020"));
 
         timeSlotList.add(new TimeSlot("09:00","10:00", "Work", "App UI Design", "des body","03/09/2020"));
         timeSlotList.add(new TimeSlot("10:00","12:00", "Work", "App Save implementation", "des body","03/09/2020"));
         timeSlotList.add(new TimeSlot("13:00","14:00", "Work", "Chest workout", "des body","03/09/2020"));
-        timeSlotList.add(new TimeSlot("09:00","10:00", "Work", "App UI Design", "des body","03/09/2020"));
+        timeSlotList.add(new TimeSlot("09:00","10:00", "Work", "App UI Design", "des body","03/09/2020"));*/
+        //timeSlotList = new ArrayList<>();
         timeSlotList.add(new TimeSlot("10:00","12:00", "Work", "App Save implementation", "des body","03/09/2020"));
         timeSlotList.add(new TimeSlot("13:00","14:00", "Work", "Chest workout", "des body","03/09/2020"));
-        insertItem(new TimeSlot("13:99","14:99", "Work", "Chest workout", "des body","03/09/2020"));
+        //insertItem(new TimeSlot("13:09","14:99", "Work", "Chest workout", "des body","03/09/2020"));
     }
 
     public void buildRecyclerView(){
@@ -127,15 +153,18 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
     }
 
     public static void insertItem(TimeSlot timeSlot){
-        mAdapter = new CustomArrayAdapter(timeSlotList);
+        //mAdapter = new CustomArrayAdapter(timeSlotList);
+
         timeSlotList.add(timeSlot);
+        mAdapter.updateReceiptsList(timeSlotList);
         //mAdapter.notifyDataSetChanged();
-        mAdapter.notifyItemInserted(timeSlotList.size() +1 );
+        //mAdapter.notifyItemInserted(timeSlotList.size() +1 );
 
     }
 
     public static void insertItem(String startTime, String endTime){
 
+        //mAdapter = new CustomArrayAdapter(timeSlotList);
         timeSlotList.add(new TimeSlot(startTime,endTime, "Work", "New Item", "des body","03/09/2020"));
         mAdapter.notifyItemInserted(timeSlotList.size() +1 );
 
@@ -159,13 +188,19 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
         mAdapter.notifyItemRemoved(position);
     }
 
+    public void updateData(ArrayList<TimeSlot> data) {
+        timeSlotList = new ArrayList<>(data);
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
+    }
+
     public void openDialog(){
         CustomDialog customDialog = new CustomDialog();
         customDialog.show(getSupportFragmentManager(), "customDialog");
     }
 
-    @Override
+    /*@Override
     public void applyTexts(String startTime, String endTime) {
         insertItem(startTime, endTime);
-    }
+    }*/
 }
