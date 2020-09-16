@@ -2,6 +2,7 @@ package com.tomrob.dayplanner;
 
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
 
 import java.sql.Time;
 import java.text.DateFormat;
@@ -125,17 +127,11 @@ public class AddTimeSlotActivity extends AppCompatActivity {
                 String todayDate = dateFormat.format(date);
 
                 TimeSlot timeSlot = new TimeSlot(editTextStartTime.getText().toString(),editTextEndTime.getText().toString(),spinner.getSelectedItem().toString(),editTextDesHeader.getText().toString(),"Please add more details",todayDate);
-               // something wrong here not adding to recycle view , check if adding to timeSlotList properly, .notifyDataSetChanged() may be broken?
-                //TimeSlot test = new TimeSlot("test","test","test","test","test","test");
                 MainActivity.timeSlotList.add(timeSlot);
-                //MainActivity.mAdapter = new CustomArrayAdapter(MainActivity.timeSlotList);
                 MainActivity.mAdapter.notifyDataSetChanged();
-                //MainActivity.insertItem(test);
-                //MainActivity.mAdapter.updateReceiptsList(MainActivity.timeSlotList);
 
-                //Toast.makeText(getApplicationContext(), "Time Slot added!" + timeSlot.toString() , Toast.LENGTH_LONG).show();
-                Toast.makeText(getApplicationContext(), MainActivity.timeSlotList.get(MainActivity.timeSlotList.size() -1).toString() , Toast.LENGTH_LONG).show();
-
+                saveData();
+                //Toast.makeText(getApplicationContext(), MainActivity.timeSlotList.get(MainActivity.timeSlotList.size() -1).toString() , Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
@@ -151,6 +147,15 @@ public class AddTimeSlotActivity extends AppCompatActivity {
                 this, R.array.time_slot_type_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+    }
+
+    public void saveData(){
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(MainActivity.timeSlotList);
+        editor.putString("time slot list", json);
+        editor.apply();
     }
 
 

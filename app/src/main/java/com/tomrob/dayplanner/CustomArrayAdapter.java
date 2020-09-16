@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,7 +92,16 @@ public class CustomArrayAdapter extends RecyclerView.Adapter<CustomArrayAdapter.
         TimeSlot currentItem = timeSlotList.get(position);
 
         // if statement for which image display here
-        holder.myImageView.setImageResource(R.drawable.ic_android);
+        if(currentItem.getTimeSlotType().equals("Work")){
+            holder.myImageView.setImageResource(R.drawable.ic_baseline_laptop_windows_24);
+        } else if(currentItem.getTimeSlotType().equals("Workout")){
+            holder.myImageView.setImageResource(R.drawable.ic_baseline_fitness_center_24);
+        } else if(currentItem.getTimeSlotType().equals("Meditate")){
+            holder.myImageView.setImageResource(R.drawable.ic_baseline_spa_24);
+        } else {
+            //holder.myImageView.setImageResource(R.drawable.ic_baseline_spa_24);
+            holder.myImageView.setImageResource(R.drawable.ic_android);
+        }
 
         holder.startTimeTV.setText(currentItem.getStartTime());
         holder.endTimeTV.setText(currentItem.getEndTime());

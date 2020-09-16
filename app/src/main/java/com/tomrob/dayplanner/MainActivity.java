@@ -8,12 +8,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.sql.Time;
 import java.util.ArrayList;
 
@@ -62,10 +67,6 @@ public class MainActivity extends AppCompatActivity{
         }
          return false;
 
-
-            //insertItem();
-            //openDialog();
-            //return false;
     }
 
 
@@ -74,10 +75,9 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //mRecyclerView = findViewById(R.id.recyclerView);
-        //createTimeSlotList();
-        //insertItem("00:00","11:11");
-        //timeSlotList.add(new TimeSlot("10:00","12:00", "Work", "App Save implementation", "des body","03/09/2020"));
+
+        loadData();
+
         buildRecyclerView();
 
 
@@ -86,30 +86,14 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onResume() {
         super.onResume();
-        //Toast.makeText(getApplicationContext(), "onResume" , Toast.LENGTH_LONG).show();
-        //insertItem(new TimeSlot("13:99","14:99", "Work", "Chest workout", "des body","03/09/2020"));
 
-        //mAdapter = new CustomArrayAdapter(timeSlotList);
-       // buildRecyclerView();
-        //mAdapter.notifyDataSetChanged();
-        //mAdapter.updateReceiptsList(timeSlotList);
-        //updateData(timeSlotList);
     }
 
     public void createTimeSlotList(){
 
-     /*   timeSlotList.add(new TimeSlot("09:00","10:00", "Work", "App UI Design", "des body","03/09/2020"));
         timeSlotList.add(new TimeSlot("10:00","12:00", "Work", "App Save implementation", "des body","03/09/2020"));
         timeSlotList.add(new TimeSlot("13:00","14:00", "Work", "Chest workout", "des body","03/09/2020"));
 
-        timeSlotList.add(new TimeSlot("09:00","10:00", "Work", "App UI Design", "des body","03/09/2020"));
-        timeSlotList.add(new TimeSlot("10:00","12:00", "Work", "App Save implementation", "des body","03/09/2020"));
-        timeSlotList.add(new TimeSlot("13:00","14:00", "Work", "Chest workout", "des body","03/09/2020"));
-        timeSlotList.add(new TimeSlot("09:00","10:00", "Work", "App UI Design", "des body","03/09/2020"));*/
-        //timeSlotList = new ArrayList<>();
-        timeSlotList.add(new TimeSlot("10:00","12:00", "Work", "App Save implementation", "des body","03/09/2020"));
-        timeSlotList.add(new TimeSlot("13:00","14:00", "Work", "Chest workout", "des body","03/09/2020"));
-        //insertItem(new TimeSlot("13:09","14:99", "Work", "Chest workout", "des body","03/09/2020"));
     }
 
     public void buildRecyclerView(){
@@ -140,7 +124,7 @@ public class MainActivity extends AppCompatActivity{
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 removeItem(position);
-
+                                saveData();
                             }
                         })
                         .setNegativeButton("No", null)
@@ -156,8 +140,8 @@ public class MainActivity extends AppCompatActivity{
         //mAdapter = new CustomArrayAdapter(timeSlotList);
 
         timeSlotList.add(timeSlot);
-        mAdapter.updateReceiptsList(timeSlotList);
-        //mAdapter.notifyDataSetChanged();
+        //mAdapter.updateReceiptsList(timeSlotList);
+        mAdapter.notifyDataSetChanged();
         //mAdapter.notifyItemInserted(timeSlotList.size() +1 );
 
     }
@@ -172,14 +156,7 @@ public class MainActivity extends AppCompatActivity{
         // could try to implement in time order inserting , so the time slots will be in order no matter what
     }
 
-    public static void insertItem(String startTime, String endTime, String timeSlotType, String desHeader,String date){
 
-        timeSlotList.add(new TimeSlot(startTime,endTime, timeSlotType, desHeader, "Please add more details",date));
-        mAdapter.notifyItemInserted(timeSlotList.size() +1 );
-
-        //mAdapter.notifyDataSetChanged();// without animation which i cant see anyway cos its at the bottom of the view
-        // could try to implement in time order inserting , so the time slots will be in order no matter what
-    }
 
     public void removeItem(int position){
         // both methods need an index/postion number
@@ -203,4 +180,29 @@ public class MainActivity extends AppCompatActivity{
     public void applyTexts(String startTime, String endTime) {
         insertItem(startTime, endTime);
     }*/
+
+    public void saveData(){
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(timeSlotList);
+        editor.putString("time slot list", json);
+        editor.apply();
+    }
+
+    public void loadData(){
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("time slot list", null);
+        Type type = new TypeToken<ArrayList<TimeSlot>>() {}.getType();
+        timeSlotList = gson.fromJson(json, type);
+
+        if(timeSlotList == null){
+            timeSlotList = new ArrayList<>();
+        }
+
+    }
+
+
+
 }

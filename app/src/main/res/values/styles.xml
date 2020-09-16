@@ -4,7 +4,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#4571a6</item>
         <item name="colorPrimaryDark">#000000</item>
-        <item name="colorAccent">#717171</item>
+        <item name="colorAccent">#fffdfd</item>
     </style>
 
     <style name="FullScreenDialogTheme" parent="Theme.AppCompat.Light.DialogWhenLarge">
