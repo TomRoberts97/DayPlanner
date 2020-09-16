@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/add_time_slot" android:title="Start new day"></item>
-
+    <item android:id="@+id/start_new_menu" android:title="Start new day"></item>
 </menu>

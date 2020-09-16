@@ -13,14 +13,20 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -38,7 +44,7 @@ public class MainActivity extends AppCompatActivity{
     public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.add_time_slot_menu, menu);
+        menuInflater.inflate(R.menu.start_new_menu, menu);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -48,20 +54,29 @@ public class MainActivity extends AppCompatActivity{
         super.onOptionsItemSelected(item);
 
         // code for switching activites when add is clicked
-       if (item.getItemId() == R.id.add_time_slot){
+       if (item.getItemId() == R.id.start_new_menu){
 
-            Intent intent = new Intent(getApplicationContext(), AddTimeSlotActivity.class);
-            startActivity(intent);
+           new AlertDialog.Builder(MainActivity.this)
+                   .setIcon(android.R.drawable.ic_dialog_alert)
+                   .setTitle("Are you sure?")
+                   .setMessage("Do you want to start a new day?")
+                   .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                       @Override
+                       public void onClick(DialogInterface dialogInterface, int i) {
 
-           // works adding new TimeSlot
-            //TimeSlot test = new TimeSlot("test","test","test","test","test","test");
-            //timeSlotList.add(test);
-           // mAdapter.notifyDataSetChanged();
 
-           //insertItem(test);
-           //mAdapter.updateReceiptsList(timeSlotList);
+                           // need to clear list, and recycleView?
+                           // then saveData
+                           timeSlotList.clear();
+                           mAdapter.notifyDataSetChanged();
+                           saveData();
 
-           //Toast.makeText(getApplicationContext(), timeSlotList.get(timeSlotList.size() -1).toString() , Toast.LENGTH_LONG).show();
+
+                       }
+                   })
+                   .setNegativeButton("No", null)
+                   .show();
+
 
            return true;
         }
@@ -79,7 +94,7 @@ public class MainActivity extends AppCompatActivity{
         loadData();
 
         buildRecyclerView();
-
+        buildAddButton();
 
     }
 
@@ -132,6 +147,17 @@ public class MainActivity extends AppCompatActivity{
 
 
 
+            }
+        });
+    }
+
+    public void buildAddButton(){
+        FloatingActionButton floatingActionButton = findViewById(R.id.floating_action_button_main);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), AddTimeSlotActivity.class);
+                startActivity(intent);
             }
         });
     }
