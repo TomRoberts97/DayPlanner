@@ -4,45 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"
-        android:clickable="false"
-        android:text="Add New Time Slot"
-        android:textSize="30sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/TextViewEndTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-
-        android:layout_marginEnd="63dp"
-        android:layout_marginTop="100dp"
-        android:text="End time"
-        android:textSize="24sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/TextViewStartTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-
-        android:layout_marginEnd="251dp"
-        android:layout_marginTop="100dp"
-        android:text="Start time"
-        android:textSize="24sp"
-        android:textStyle="bold" />
-
+<!--
     <EditText
         android:id="@+id/EditTextStartTime"
         android:layout_width="wrap_content"
@@ -50,27 +12,28 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="125dp"
-        android:hint="Select Time"
+        android:layout_marginTop="50dp"
+        android:hint="Start Time"
         android:gravity="center_horizontal"
         android:padding="15dp"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold" />-->
 
-    <EditText
+   <!-- <EditText
         android:id="@+id/EditTextEndTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:layout_marginEnd="40dp"
-        android:layout_marginTop="125dp"
-        android:hint="Select Time"
+        android:layout_marginTop="50dp"
+        android:hint="End Time"
         android:gravity="center_horizontal"
 
         android:padding="15dp"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold" />-->
+
 
     <TextView
         android:id="@+id/TextViewTypeSelect"
@@ -80,52 +43,55 @@
         android:layout_alignParentTop="true"
 
         android:layout_centerHorizontal="true"
-        android:layout_marginEnd="122dp"
-        android:layout_marginTop="194dp"
+        android:layout_marginEnd="152dp"
+        android:layout_marginTop="324dp"
         android:text="Time Slot Type"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
-    <Spinner
-        android:id="@+id/time_slot_type_spinner"
-        android:layout_width="146dp"
-        android:layout_height="42dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="218dp"
-        android:textSize="20sp"
-        android:prompt="@string/spinner_prompt"
-        android:spinnerMode="dialog"/>
-
     <TextView
-        android:id="@+id/TextViewDesHeader"
+        android:id="@+id/TextViewDateDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
 
         android:layout_centerHorizontal="true"
-        android:layout_marginEnd="104dp"
-        android:layout_marginTop="390dp"
-        android:text="Description (Title)"
-        android:textSize="24sp"
+        android:layout_marginEnd="271dp"
+        android:layout_marginTop="527dp"
+        android:text="Time Slot Type"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/EditTextDescriptionHeader"
-        android:layout_width="218dp"
-        android:layout_height="wrap_content"
+
+    <!--   <EditText
+           android:id="@+id/EditTextDescriptionHeaderET"
+           android:layout_width="376dp"
+           android:layout_height="71dp"
+           android:layout_alignParentEnd="true"
+           android:layout_alignParentTop="true"
+           android:layout_centerHorizontal="true"
+           android:layout_marginEnd="19dp"
+           android:layout_marginTop="234dp"
+           android:gravity="center_horizontal"
+
+           android:hint="Description (Header)"
+           android:padding="15dp"
+           android:textSize="20sp"
+           android:textStyle="bold" />-->
+
+    <Spinner
+        android:id="@+id/time_slot_type_spinner"
+        android:layout_width="370dp"
+        android:layout_height="47dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginEnd="94dp"
-        android:layout_marginTop="422dp"
-        android:gravity="center_horizontal"
-
-        android:hint="Write title"
-        android:padding="15dp"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:layout_marginEnd="27dp"
+        android:layout_marginTop="364dp"
+        android:prompt="@string/spinner_prompt"
+        android:spinnerMode="dialog"
+        android:textSize="20sp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_action_button"
@@ -136,7 +102,82 @@
         android:layout_gravity="bottom|right"
         android:layout_marginBottom="48dp"
         app:srcCompat="@drawable/ic_baseline_add_24" />
-<!--        android:contentDescription="@string/fab_content_desc"-->
-<!--        app:srcCompat="@drawable/ic_plus_24" />-->
+
+  <!--  <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/EditTextDescriptionHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="212dp"
+        android:layout_marginEnd="-1dp"
+        android:layout_marginStart="1dp"
+        android:hint="Time slot description"
+        app:counterEnabled="true"
+        app:counterMaxLength="20"
+        app:endIconMode="clear_text"
+        app:helperText="helpTExt"
+        app:helperTextEnabled="true" />-->
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/outlinedTextFieldDescriptionHeader"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="353dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="169dp"
+        android:hint="Time Slot title"
+        android:padding="6dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="30">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/EditTextDescriptionHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/outlinedTextFieldStartTime"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="148dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="53dp"
+        android:hint="Start time"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/EditTextStartTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/outlinedTextFieldEndTime"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="148dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="227dp"
+        android:layout_marginTop="53dp"
+        android:layout_marginEnd="35dp"
+        android:hint="End time"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/EditTextEndTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
 </RelativeLayout>

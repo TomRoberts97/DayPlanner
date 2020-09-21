@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ public class AddTimeSlotActivity extends AppCompatActivity {
 
     TimePickerDialog startTimePicker, endTimePicker;
     EditText editTextStartTime, editTextEndTime, editTextDesHeader;
+    TextView textViewDate;
     Spinner spinner;
 
     @Override
@@ -41,8 +43,11 @@ public class AddTimeSlotActivity extends AppCompatActivity {
         fillSpinner();
 
 
-
-
+        textViewDate = findViewById(R.id.TextViewDateDisplay);
+        Date date = Calendar.getInstance().getTime();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String todayDate = dateFormat.format(date);
+        textViewDate.setText(todayDate);
 
 
 
