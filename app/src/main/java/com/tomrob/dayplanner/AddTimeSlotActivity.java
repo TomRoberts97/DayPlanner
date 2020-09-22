@@ -3,6 +3,7 @@ package com.tomrob.dayplanner;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -16,15 +17,18 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 
-import java.sql.Time;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class AddTimeSlotActivity extends AppCompatActivity implements AdapterView.OnItemClickListener  {
@@ -34,8 +38,10 @@ public class AddTimeSlotActivity extends AppCompatActivity implements AdapterVie
     TextView textViewDate;
     Spinner spinner;
     AutoCompleteTextView filledExposedDropdown;
+    TextInputLayout textInputLayoutStartTime, textInputLayoutEndTime, textInputLayoutDesHeader;
     String selectedType;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,9 +58,6 @@ public class AddTimeSlotActivity extends AppCompatActivity implements AdapterVie
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String todayDate = dateFormat.format(date);
         textViewDate.setText(todayDate);
-
-
-
 
 
 
@@ -123,27 +126,80 @@ public class AddTimeSlotActivity extends AppCompatActivity implements AdapterVie
             }
         }); // end of end time picker dialog
 
+
+
+
+
         // start of add/save button click
         FloatingActionButton floatingActionButton = findViewById(R.id.floating_action_button);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+            
+                boolean timeFlag = false, desHeadFlag;
+                
+                textInputLayoutStartTime = findViewById(R.id.outlinedTextFieldStartTime);
+                textInputLayoutEndTime = findViewById(R.id.outlinedTextFieldEndTime);
+                textInputLayoutDesHeader = findViewById(R.id.outlinedTextFieldDescriptionHeader);
+
+                if(editTextStartTime.getText().toString().isEmpty()){
+                    textInputLayoutStartTime.setError("Missing data!");
+                } else {
+                    textInputLayoutStartTime.setError(null);
+                }
+                if (editTextEndTime.getText().toString().isEmpty()){
+                    textInputLayoutEndTime.setError("Missing data!");
+                } else {
+                    textInputLayoutEndTime.setError(null);
+                }
+                if (editTextDesHeader.getText().toString().isEmpty()){
+                    textInputLayoutDesHeader.setError("Missing data!");
+                    desHeadFlag = false;
+                } else {
+                    textInputLayoutDesHeader.setError(null);
+                    desHeadFlag = true;
+                }
+
+
+                if(!editTextStartTime.getText().toString().isEmpty() && !editTextEndTime.getText().toString().isEmpty() ) {
+                    
+                    String strStartTime = editTextStartTime.getText().toString();
+                    String strEndTime = editTextEndTime.getText().toString();
+
+                    LocalTime start = LocalTime.parse(strStartTime);
+                    LocalTime stop = LocalTime.parse(strEndTime);
+
+                    boolean isStopAfterStart = stop.isAfter(start);
+
+                    if (isStopAfterStart) {
+                       // textInputLayoutStartTime.setError("Start time is after end time!");
+                        textInputLayoutStartTime.setError(null);
+                        timeFlag = true;
+                    } else {
+                        textInputLayoutStartTime.setError("Start time cannot be after End time!");
+                        timeFlag = false;
+                    }
+                }
+
+
 
 
                 //Data Validation to be added!!
-                Date date = Calendar.getInstance().getTime();
-                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                String todayDate = dateFormat.format(date);
+                if(timeFlag && desHeadFlag) {
+                    Date date = Calendar.getInstance().getTime();
+                    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    String todayDate = dateFormat.format(date);
 
-                TimeSlot timeSlot = new TimeSlot(editTextStartTime.getText().toString(),editTextEndTime.getText().toString(),selectedType,editTextDesHeader.getText().toString(),"Please add more details",todayDate);
-                MainActivity.timeSlotList.add(timeSlot);
-                MainActivity.mAdapter.notifyDataSetChanged();
+                    TimeSlot timeSlot = new TimeSlot(editTextStartTime.getText().toString(), editTextEndTime.getText().toString(), selectedType, editTextDesHeader.getText().toString(), "Please add more details", todayDate);
+                    MainActivity.timeSlotList.add(timeSlot);
+                    MainActivity.mAdapter.notifyDataSetChanged();
 
-                saveData();
-                //Toast.makeText(getApplicationContext(), MainActivity.timeSlotList.get(MainActivity.timeSlotList.size() -1).toString() , Toast.LENGTH_LONG).show();
+                    saveData();
+                    //Toast.makeText(getApplicationContext(), MainActivity.timeSlotList.get(MainActivity.timeSlotList.size() -1).toString() , Toast.LENGTH_LONG).show();
 
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -188,5 +244,12 @@ public class AddTimeSlotActivity extends AppCompatActivity implements AdapterVie
         editor.apply();
     }
 
+    boolean isTimeAfter(Date startTime, Date endTime) {
+        if (endTime.before(startTime)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
 }

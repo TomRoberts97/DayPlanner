@@ -92,7 +92,8 @@ public class CustomArrayAdapter extends RecyclerView.Adapter<CustomArrayAdapter.
         TimeSlot currentItem = timeSlotList.get(position);
 
         // if statement for which image display here
-        if(currentItem.getTimeSlotType().equals("Work")){
+        // problem started after adding validation on Add activity , no idea why,
+        /*if(currentItem.getTimeSlotType().equals("Work")){
             holder.myImageView.setImageResource(R.drawable.ic_baseline_laptop_windows_24);
         } else if(currentItem.getTimeSlotType().equals("Workout")){
             holder.myImageView.setImageResource(R.drawable.ic_baseline_fitness_center_24);
@@ -101,8 +102,9 @@ public class CustomArrayAdapter extends RecyclerView.Adapter<CustomArrayAdapter.
         } else {
             //holder.myImageView.setImageResource(R.drawable.ic_baseline_spa_24);
             holder.myImageView.setImageResource(R.drawable.ic_android);
-        }
+        }*/
 
+        holder.myImageView.setImageResource(R.drawable.ic_android);
         holder.startTimeTV.setText(currentItem.getStartTime());
         holder.endTimeTV.setText(currentItem.getEndTime());
         holder.descriptionHeaderTV.setText(currentItem.getDescriptionHeader());
