@@ -35,7 +35,7 @@
         android:textStyle="bold" />-->
 
 
-    <TextView
+   <!-- <TextView
         android:id="@+id/TextViewTypeSelect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
         android:layout_marginTop="324dp"
         android:text="Time Slot Type"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold" />-->
 
     <TextView
         android:id="@+id/TextViewDateDisplay"
@@ -80,7 +80,7 @@
            android:textSize="20sp"
            android:textStyle="bold" />-->
 
-    <Spinner
+<!--    <Spinner
         android:id="@+id/time_slot_type_spinner"
         android:layout_width="370dp"
         android:layout_height="47dp"
@@ -91,7 +91,7 @@
         android:layout_marginTop="364dp"
         android:prompt="@string/spinner_prompt"
         android:spinnerMode="dialog"
-        android:textSize="20sp" />
+        android:textSize="20sp" />-->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_action_button"
@@ -178,6 +178,27 @@
             android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="353dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="250dp"
+        android:layout_marginStart="32dp">
+
+
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteExposedDropdown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
 
 
 </RelativeLayout>

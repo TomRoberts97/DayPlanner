@@ -6,7 +6,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -25,20 +27,22 @@ import java.util.Date;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class AddTimeSlotActivity extends AppCompatActivity {
+public class AddTimeSlotActivity extends AppCompatActivity implements AdapterView.OnItemClickListener  {
 
     TimePickerDialog startTimePicker, endTimePicker;
     EditText editTextStartTime, editTextEndTime, editTextDesHeader;
     TextView textViewDate;
     Spinner spinner;
+    AutoCompleteTextView filledExposedDropdown;
+    String selectedType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_time_slot);
 
-
-        spinner = findViewById(R.id.time_slot_type_spinner);
+        filledExposedDropdown = findViewById(R.id.autoCompleteExposedDropdown);
+        //spinner = findViewById(R.id.autoCompleteExposedDropdown);
         editTextDesHeader = findViewById(R.id.EditTextDescriptionHeader);
         fillSpinner();
 
@@ -131,7 +135,7 @@ public class AddTimeSlotActivity extends AppCompatActivity {
                 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 String todayDate = dateFormat.format(date);
 
-                TimeSlot timeSlot = new TimeSlot(editTextStartTime.getText().toString(),editTextEndTime.getText().toString(),spinner.getSelectedItem().toString(),editTextDesHeader.getText().toString(),"Please add more details",todayDate);
+                TimeSlot timeSlot = new TimeSlot(editTextStartTime.getText().toString(),editTextEndTime.getText().toString(),selectedType,editTextDesHeader.getText().toString(),"Please add more details",todayDate);
                 MainActivity.timeSlotList.add(timeSlot);
                 MainActivity.mAdapter.notifyDataSetChanged();
 
@@ -150,9 +154,30 @@ public class AddTimeSlotActivity extends AppCompatActivity {
     private void fillSpinner(){
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this, R.array.time_slot_type_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //spinner.setAdapter(adapter);
+
+        filledExposedDropdown.setText("Other");
+        filledExposedDropdown.setAdapter(adapter);
+        filledExposedDropdown.setOnItemClickListener(this);
     }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+    {
+        // fetch the user selected value
+        String item = parent.getItemAtPosition(position).toString();
+
+        // create Toast with user selected value
+        Toast.makeText(AddTimeSlotActivity.this, "Selected Item is: \t" + item, Toast.LENGTH_LONG).show();
+
+        selectedType = item;
+        // set user selected value to the TextView
+        //tvDisplay.setText(item);
+
+    }
+
+
 
     public void saveData(){
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
