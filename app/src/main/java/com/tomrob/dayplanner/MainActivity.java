@@ -201,8 +201,8 @@ public class MainActivity extends AppCompatActivity{
 
 
         }
-
-
+        timeSlotList.add(timeSlot);
+        mAdapter.notifyDataSetChanged();
         //timeSlotList.add(timeSlot);
         //mAdapter.updateReceiptsList(timeSlotList);
         //mAdapter.notifyDataSetChanged();

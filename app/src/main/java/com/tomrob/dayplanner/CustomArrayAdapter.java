@@ -109,7 +109,7 @@ public class CustomArrayAdapter extends RecyclerView.Adapter<CustomArrayAdapter.
                 break;
         }
 
-       // holder.myImageView.setImageResource(R.drawable.ic_android);
+        //holder.myImageView.setImageResource(R.drawable.ic_android);
         holder.startTimeTV.setText(currentItem.getStartTime());
         holder.endTimeTV.setText(currentItem.getEndTime());
         holder.descriptionHeaderTV.setText(currentItem.getDescriptionHeader());

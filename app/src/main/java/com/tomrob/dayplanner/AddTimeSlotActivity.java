@@ -39,7 +39,7 @@ public class AddTimeSlotActivity extends AppCompatActivity implements AdapterVie
     Spinner spinner;
     AutoCompleteTextView filledExposedDropdown;
     TextInputLayout textInputLayoutStartTime, textInputLayoutEndTime, textInputLayoutDesHeader;
-    String selectedType;
+    String selectedType = "Other";
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
