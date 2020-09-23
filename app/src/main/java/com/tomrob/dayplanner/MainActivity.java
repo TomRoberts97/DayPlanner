@@ -1,6 +1,7 @@
 package com.tomrob.dayplanner;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,6 +26,7 @@ import java.lang.reflect.Type;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -86,6 +89,7 @@ public class MainActivity extends AppCompatActivity{
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +100,7 @@ public class MainActivity extends AppCompatActivity{
         buildRecyclerView();
         buildAddButton();
 
+        //insertItem(new TimeSlot("12:30","17:00", "Work", "App Save implementation", "des body","03/09/2020"));
     }
 
     @Override
@@ -162,12 +167,45 @@ public class MainActivity extends AppCompatActivity{
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public static void insertItem(TimeSlot timeSlot){
         //mAdapter = new CustomArrayAdapter(timeSlotList);
 
-        timeSlotList.add(timeSlot);
+
+        // CHECK THIS! WILL THE RECYCLER VIEW UPDATE WITH THE LIST IN ORDER
+
+        // loop through list comparing each TimeSlot objects startTime
+        // if the insert items start time is before the other objects
+        // insert new object in that index
+        // if start time is after
+        // check the next list item
+        // insert at end of list in start time after every other
+        for(int i = 0; i < timeSlotList.size(); i++){
+
+            TimeSlot obj = timeSlotList.get(i);
+
+            LocalTime start = LocalTime.parse(timeSlot.getStartTime());
+            LocalTime stop = LocalTime.parse(obj.getStartTime());
+
+            boolean isStopAfterStart = stop.isAfter(start);
+
+            if (isStopAfterStart) {
+                // start time is smaller
+                timeSlotList.add(i,timeSlot);
+                mAdapter.notifyDataSetChanged();
+                return;
+            } else {
+                // start time is larger
+                continue;
+            }
+
+
+        }
+
+
+        //timeSlotList.add(timeSlot);
         //mAdapter.updateReceiptsList(timeSlotList);
-        mAdapter.notifyDataSetChanged();
+        //mAdapter.notifyDataSetChanged();
         //mAdapter.notifyItemInserted(timeSlotList.size() +1 );
 
     }

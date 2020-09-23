@@ -93,18 +93,23 @@ public class CustomArrayAdapter extends RecyclerView.Adapter<CustomArrayAdapter.
 
         // if statement for which image display here
         // problem started after adding validation on Add activity , no idea why,
-        /*if(currentItem.getTimeSlotType().equals("Work")){
-            holder.myImageView.setImageResource(R.drawable.ic_baseline_laptop_windows_24);
-        } else if(currentItem.getTimeSlotType().equals("Workout")){
-            holder.myImageView.setImageResource(R.drawable.ic_baseline_fitness_center_24);
-        } else if(currentItem.getTimeSlotType().equals("Meditate")){
-            holder.myImageView.setImageResource(R.drawable.ic_baseline_spa_24);
-        } else {
-            //holder.myImageView.setImageResource(R.drawable.ic_baseline_spa_24);
-            holder.myImageView.setImageResource(R.drawable.ic_android);
-        }*/
+        switch (currentItem.getTimeSlotType()) {
+            case "Work":
+                holder.myImageView.setImageResource(R.drawable.ic_baseline_laptop_windows_24);
+                break;
+            case "Workout":
+                holder.myImageView.setImageResource(R.drawable.ic_baseline_fitness_center_24);
+                break;
+            case "Meditate":
+                holder.myImageView.setImageResource(R.drawable.ic_baseline_spa_24);
+                break;
+            default:
+                //holder.myImageView.setImageResource(R.drawable.ic_baseline_spa_24);
+                holder.myImageView.setImageResource(R.drawable.ic_android);
+                break;
+        }
 
-        holder.myImageView.setImageResource(R.drawable.ic_android);
+       // holder.myImageView.setImageResource(R.drawable.ic_android);
         holder.startTimeTV.setText(currentItem.getStartTime());
         holder.endTimeTV.setText(currentItem.getEndTime());
         holder.descriptionHeaderTV.setText(currentItem.getDescriptionHeader());

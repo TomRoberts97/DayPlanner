@@ -191,8 +191,10 @@ public class AddTimeSlotActivity extends AppCompatActivity implements AdapterVie
                     String todayDate = dateFormat.format(date);
 
                     TimeSlot timeSlot = new TimeSlot(editTextStartTime.getText().toString(), editTextEndTime.getText().toString(), selectedType, editTextDesHeader.getText().toString(), "Please add more details", todayDate);
-                    MainActivity.timeSlotList.add(timeSlot);
-                    MainActivity.mAdapter.notifyDataSetChanged();
+                    //MainActivity.timeSlotList.add(timeSlot);
+                    //MainActivity.mAdapter.notifyDataSetChanged();
+
+                    MainActivity.insertItem(timeSlot);
 
                     saveData();
                     //Toast.makeText(getApplicationContext(), MainActivity.timeSlotList.get(MainActivity.timeSlotList.size() -1).toString() , Toast.LENGTH_LONG).show();
