@@ -101,7 +101,9 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="bottom|right"
         android:layout_marginBottom="48dp"
-        app:srcCompat="@drawable/ic_baseline_add_24" />
+        app:srcCompat="@drawable/ic_baseline_add_24"
+        app:backgroundTint="@color/colorAccent"
+        />
 
   <!--  <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/EditTextDescriptionHeader"
@@ -123,14 +125,13 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/outlinedTextFieldDescriptionHeader"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="353dp"
+        android:layout_width="339dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="169dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="150dp"
         android:hint="Time Slot title"
-        android:padding="6dp"
         app:counterEnabled="true"
         app:counterMaxLength="30">
 
@@ -149,7 +150,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="35dp"
-        android:layout_marginTop="53dp"
+        android:layout_marginTop="45dp"
         android:hint="Start time"
         app:errorEnabled="true"
         >
@@ -168,7 +169,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="227dp"
-        android:layout_marginTop="53dp"
+        android:layout_marginTop="45dp"
         android:layout_marginEnd="35dp"
         android:hint="End time"
         >
@@ -183,12 +184,13 @@
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:layout_width="353dp"
+        android:layout_width="339dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="250dp"
-        android:layout_marginStart="32dp">
+        android:layout_centerHorizontal="true"
+        android:hint="Time Slot type"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="250dp">
 
 
         <AutoCompleteTextView
@@ -198,8 +200,6 @@
             android:inputType="none" />
 
     </com.google.android.material.textfield.TextInputLayout>
-
-
 
 
 </RelativeLayout>

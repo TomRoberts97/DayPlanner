@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/start_new_menu" android:title="Start new day"></item>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item android:id="@+id/email_menu_item"
+        android:icon="@drawable/ic_email_icon"
+        android:title="Email Item"
+        app:showAsAction="ifRoom"></item>
+
+
+
+    <item android:id="@+id/start_new_menu"
+        android:icon="@drawable/ic_baseline_update_24"
+        android:title="Start new day"
+        app:showAsAction="ifRoom"
+        ></item>
 </menu>

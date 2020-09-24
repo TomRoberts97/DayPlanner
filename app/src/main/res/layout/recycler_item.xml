@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="4dp"
-    android:layout_marginBottom="8dp">
+    android:layout_marginBottom="8dp"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -27,10 +28,23 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="1dp"
             android:layout_toEndOf="@+id/imageView"
-            android:text="timeStart"
-            android:textColor="@android:color/black"
+            android:text="HH:MM"
+
             android:textSize="20sp"
             android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="42dp"
+            android:layout_marginTop="27dp"
+            android:layout_toEndOf="@+id/imageView"
+            android:text="-"
+            android:textSize="20sp"
+            android:textStyle="bold">
+
+        </TextView>
 
         <TextView
             android:id="@+id/endTimeTextView"
@@ -40,30 +54,32 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="26dp"
             android:layout_toEndOf="@id/imageView"
-            android:text="timeEnd"
-            android:textColor="@android:color/black"
+            android:text="HH:MM"
             android:textSize="20sp"
             android:textStyle="bold"
             />
 
         <TextView
             android:id="@+id/descriptionHeaderTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="155dp"
+            android:layout_height="67dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:layout_marginEnd="109dp"
-            android:layout_marginTop="29dp"
+            android:layout_marginEnd="66dp"
+            android:layout_marginTop="9dp"
             android:text="DesciptionHeader"
+            android:gravity="center"
             android:textColor="@android:color/black"
             android:textSize="14sp" />
 
         <ImageView
             android:id="@+id/image_delete"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_alignParentTop="true"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="0dp"
+            android:layout_marginTop="10dp"
             android:src="@drawable/ic_delete" />
 
     </RelativeLayout>

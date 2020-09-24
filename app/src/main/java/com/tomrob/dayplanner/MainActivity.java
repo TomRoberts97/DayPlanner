@@ -83,8 +83,19 @@ public class MainActivity extends AppCompatActivity{
 
            return true;
         }
-         return false;
+         //return false;
 
+       if(item.getItemId() == R.id.email_menu_item){
+           Toast.makeText(getApplicationContext(), "selected", Toast.LENGTH_LONG).show();
+
+           // need to build dialog for capturing email address
+           // then need to build sendEmail method
+           // which will create the subject and body of the email
+           // loop through arrayList<timeslot>
+           // formatting each object , so it can be easily read
+       }
+
+        return false;
     }
 
 
@@ -267,6 +278,27 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
+    public void sendEmail(){
+
+
+        String recipient = "tomroberts97.tr@gmail.com"; // THIS WILL BE SET BY USER FROM DIALOG
+        
+        String subject = "Todays plan!"; // Date to be added
+
+        String message = "where the object data will go";
+
+
+
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_EMAIL, recipient);
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_TEXT, message);
+
+        intent.setType("message/rfc822");
+        startActivity(Intent.createChooser(intent, "Choose an email client"));
+
+    }
 
 
 }

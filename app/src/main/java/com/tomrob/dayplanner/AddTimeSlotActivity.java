@@ -160,7 +160,7 @@ public class AddTimeSlotActivity extends AppCompatActivity implements AdapterVie
                     desHeadFlag = true;
                 }
 
-
+                // used for checking start time is before end time
                 if(!editTextStartTime.getText().toString().isEmpty() && !editTextEndTime.getText().toString().isEmpty() ) {
                     
                     String strStartTime = editTextStartTime.getText().toString();
@@ -179,12 +179,11 @@ public class AddTimeSlotActivity extends AppCompatActivity implements AdapterVie
                         textInputLayoutStartTime.setError("Start time cannot be after End time!");
                         timeFlag = false;
                     }
-                }
+                }// end of time check
 
 
 
-
-                //Data Validation to be added!!
+                // when validation is complete , add/save is ran
                 if(timeFlag && desHeadFlag) {
                     Date date = Calendar.getInstance().getTime();
                     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -201,7 +200,7 @@ public class AddTimeSlotActivity extends AppCompatActivity implements AdapterVie
 
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
-                }
+                } // end of add/save timeSlot
             }
         });
 
