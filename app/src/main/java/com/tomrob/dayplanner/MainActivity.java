@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements CustomDialog.CustomDialogListener {
 
 
 
@@ -86,13 +86,15 @@ public class MainActivity extends AppCompatActivity{
          //return false;
 
        if(item.getItemId() == R.id.email_menu_item){
-           Toast.makeText(getApplicationContext(), "selected", Toast.LENGTH_LONG).show();
+           Toast.makeText(getApplicationContext(), "Email Time!", Toast.LENGTH_LONG).show();
 
            // need to build dialog for capturing email address
            // then need to build sendEmail method
            // which will create the subject and body of the email
            // loop through arrayList<timeslot>
            // formatting each object , so it can be easily read
+            openDialog();
+           //sendEmail();
        }
 
         return false;
@@ -150,7 +152,6 @@ public class MainActivity extends AppCompatActivity{
                 new AlertDialog.Builder(MainActivity.this)
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setTitle("Are you sure?")
-                        .setMessage("Do you want to delete this time slot?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -251,8 +252,8 @@ public class MainActivity extends AppCompatActivity{
         customDialog.show(getSupportFragmentManager(), "customDialog");
     }
 
-    /*@Override
-    public void applyTexts(String startTime, String endTime) {
+  /*  @Override
+    public void applyTexts(String email) {
         insertItem(startTime, endTime);
     }*/
 
@@ -278,11 +279,11 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
-    public void sendEmail(){
+    public void sendEmail(String email){
 
 
-        String recipient = "tomroberts97.tr@gmail.com"; // THIS WILL BE SET BY USER FROM DIALOG
-        
+        String recipient = email; // THIS WILL BE SET BY USER FROM DIALOG
+
         String subject = "Todays plan!"; // Date to be added
 
         String message = "where the object data will go";
@@ -301,4 +302,8 @@ public class MainActivity extends AppCompatActivity{
     }
 
 
+    @Override
+    public void applyTexts(String email) {
+        sendEmail(email);
+    }
 }
