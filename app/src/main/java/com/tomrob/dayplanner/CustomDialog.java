@@ -37,9 +37,7 @@ public class CustomDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_dialog,null);
@@ -78,6 +76,32 @@ public class CustomDialog extends DialogFragment {
         //editTextStartTime = view.findViewById(R.id.edit_start_time);
         //editTextEndTime = view.findViewById(R.id.edit_end_time);
         editTextEmail = view.findViewById(R.id.TextInputEditTextEmail);
+
+        // start of validation testing
+      /*  final AlertDialog alertDialog = builder.create();
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Boolean isEmpty = false;
+
+                if(editTextEmail.getText().toString().isEmpty()){
+                    textInputLayout.setError("Missing data!");
+                    isEmpty = true;
+                } else {
+                    textInputLayout.setError(null);
+                    isEmpty = false;
+                }
+
+
+
+                if(!isEmpty){
+                    String email = editTextEmail.getText().toString();
+                    listener.applyTexts(email);
+                    alertDialog.dismiss();
+                }
+
+            }
+        }); // end of validation testing   */
 
         return builder.create();
     }

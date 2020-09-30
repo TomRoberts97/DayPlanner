@@ -249,6 +249,9 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
 
     public void openDialog(){
         CustomDialog customDialog = new CustomDialog();
+
+
+
         customDialog.show(getSupportFragmentManager(), "customDialog");
     }
 
@@ -281,13 +284,27 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
 
     public void sendEmail(String email){
 
-
         String recipient = email; // THIS WILL BE SET BY USER FROM DIALOG
-
         String subject = "Todays plan!"; // Date to be added
 
-        String message = "where the object data will go";
 
+
+        String emailStart = "Todays Plan!\n" + timeSlotList.get(0).getDate() + "\n\n";
+
+        String timeSlotString = "";
+        String timeSlots = "";
+        for(int i = 0; i < timeSlotList.size() ; i++){
+            TimeSlot timeSlot = timeSlotList.get(i);
+
+            timeSlotString = timeSlot.getStartTime() + " - " + timeSlot.getEndTime() + "\n"
+                              + timeSlot.getTimeSlotType() + "\n"
+                                + timeSlot.getDescriptionHeader() + "\n\n";
+            timeSlots += timeSlotString;
+        }
+
+
+        String message = emailStart + timeSlots;
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
 
 
 
