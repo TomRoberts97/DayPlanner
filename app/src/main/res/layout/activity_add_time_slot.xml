@@ -49,7 +49,7 @@
         android:textSize="18sp"
         android:textStyle="bold" />-->
 
-    <TextView
+   <!-- <TextView
         android:id="@+id/TextViewDateDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
         android:layout_marginTop="527dp"
         android:text="Time Slot Type"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold" />-->
 
 
     <!--   <EditText
@@ -131,9 +131,10 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="35dp"
         android:layout_marginTop="150dp"
-        android:hint="Time Slot title"
+        android:hint="Description"
         app:counterEnabled="true"
-        app:counterMaxLength="30">
+        app:counterMaxLength="90"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/EditTextDescriptionHeader"

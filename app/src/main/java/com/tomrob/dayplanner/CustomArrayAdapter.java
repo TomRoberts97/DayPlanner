@@ -1,5 +1,6 @@
 package com.tomrob.dayplanner;
 
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,10 +8,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class CustomArrayAdapter extends RecyclerView.Adapter<CustomArrayAdapter.MyViewHolder> {
@@ -87,6 +92,7 @@ public class CustomArrayAdapter extends RecyclerView.Adapter<CustomArrayAdapter.
         return evh;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         TimeSlot currentItem = timeSlotList.get(position);
@@ -95,6 +101,27 @@ public class CustomArrayAdapter extends RecyclerView.Adapter<CustomArrayAdapter.
         // problem started after adding validation on Add activity , no idea why,
         switch (currentItem.getTimeSlotType()) {
             case "Work":
+
+              /*  // working on different coloured images when a time slot is complete
+                final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+                String time = dateFormat.format(new Date());
+
+                LocalTime start = LocalTime.parse(currentItem.getEndTime());
+                LocalTime stop = LocalTime.parse(time);
+
+                boolean isStopAfterStart = stop.isAfter(start);
+
+                if (isStopAfterStart) {
+                    // start time is smaller
+
+                    return;
+                } else {
+                    // start time is larger
+
+                }*/
+
+
+
                 holder.myImageView.setImageResource(R.drawable.ic_baseline_laptop_windows_24);
                 break;
             case "Workout":

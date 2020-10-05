@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
                    .setIcon(android.R.drawable.ic_dialog_alert)
                    .setTitle("Are you sure?")
                    .setMessage("Do you want to start a new day?")
-                   .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                   .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                        @Override
                        public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
 
                        }
                    })
-                   .setNegativeButton("No", null)
+                   .setNegativeButton("Cancel", null)
                    .show();
 
 
@@ -292,14 +292,14 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
         String emailStart = "Todays Plan!\n" + timeSlotList.get(0).getDate() + "\n\n";
 
         String timeSlotString = "";
-        String timeSlots = "";
+        StringBuilder timeSlots = new StringBuilder();
         for(int i = 0; i < timeSlotList.size() ; i++){
             TimeSlot timeSlot = timeSlotList.get(i);
 
             timeSlotString = timeSlot.getStartTime() + " - " + timeSlot.getEndTime() + "\n"
                               + timeSlot.getTimeSlotType() + "\n"
                                 + timeSlot.getDescriptionHeader() + "\n\n";
-            timeSlots += timeSlotString;
+            timeSlots.append(timeSlotString);
         }
 
 

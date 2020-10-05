@@ -53,11 +53,11 @@ public class AddTimeSlotActivity extends AppCompatActivity implements AdapterVie
         fillSpinner();
 
 
-        textViewDate = findViewById(R.id.TextViewDateDisplay);
+       /* textViewDate = findViewById(R.id.TextViewDateDisplay);
         Date date = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String todayDate = dateFormat.format(date);
-        textViewDate.setText(todayDate);
+        textViewDate.setText(todayDate);*/
 
 
 

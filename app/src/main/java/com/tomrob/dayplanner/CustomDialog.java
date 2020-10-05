@@ -5,6 +5,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -37,13 +40,34 @@ public class CustomDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_dialog,null);
 
         textInputLayout = view.findViewById(R.id.TextInputLayoutEmail);
+        editTextEmail = view.findViewById(R.id.TextInputEditTextEmail);
+        editTextEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                validateEditText(editable);
+            }
+        });
+
+
+
+
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view)
                 .setTitle("Send day plan via Email")
                 .setMessage("Please enter email you wish to send to")
@@ -117,9 +141,31 @@ public class CustomDialog extends DialogFragment {
         }
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        AlertDialog dialog = (AlertDialog) getDialog();
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+    }
+
     public interface CustomDialogListener{
         void applyTexts(String email);
     }
+
+    private void validateEditText(Editable s) {
+        AlertDialog dialog = (AlertDialog) getDialog();
+        if (!TextUtils.isEmpty(s)) {
+           // layoutEdtPhone.setError(null);
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+        }
+        else{
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+           // layoutEdtPhone.setError(getString(R.string.ui_no_password_toast));
+        }
+    }
+
 
 
 }
