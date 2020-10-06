@@ -1,5 +1,6 @@
 package com.tomrob.dayplanner;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class CustomArrayAdapter extends RecyclerView.Adapter<CustomArrayAdapter.MyViewHolder> {
@@ -99,40 +101,52 @@ public class CustomArrayAdapter extends RecyclerView.Adapter<CustomArrayAdapter.
 
         // if statement for which image display here
         // problem started after adding validation on Add activity , no idea why,
+        final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        String time = dateFormat.format(new Date());
+
+        LocalTime timeSlotTime = LocalTime.parse(currentItem.getEndTime());
+        LocalTime realTime = LocalTime.parse(time);
+
+        boolean isStopAfterStart = realTime.isAfter(timeSlotTime);
+
         switch (currentItem.getTimeSlotType()) {
             case "Work":
 
-              /*  // working on different coloured images when a time slot is complete
-                final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
-                String time = dateFormat.format(new Date());
-
-                LocalTime start = LocalTime.parse(currentItem.getEndTime());
-                LocalTime stop = LocalTime.parse(time);
-
-                boolean isStopAfterStart = stop.isAfter(start);
-
                 if (isStopAfterStart) {
-                    // start time is smaller
-
-                    return;
+                    // timeSlotTime is smaller
+                    holder.myImageView.setImageResource(R.drawable.ic_baseline_laptop_windows_green);
                 } else {
-                    // start time is larger
+                    // timeSlotTime is larger
+                    holder.myImageView.setImageResource(R.drawable.ic_baseline_laptop_windows_24);
+                }
 
-                }*/
-
-
-
-                holder.myImageView.setImageResource(R.drawable.ic_baseline_laptop_windows_24);
                 break;
             case "Workout":
-                holder.myImageView.setImageResource(R.drawable.ic_baseline_fitness_center_24);
+                if (isStopAfterStart) {
+                    // timeSlotTime is smaller
+                    holder.myImageView.setImageResource(R.drawable.ic_baseline_fitness_center_green);
+                } else {
+                    // timeSlotTime is larger
+                    holder.myImageView.setImageResource(R.drawable.ic_baseline_fitness_center_24);
+                }
                 break;
             case "Meditate":
-                holder.myImageView.setImageResource(R.drawable.ic_baseline_spa_24);
+                if (isStopAfterStart) {
+                    // timeSlotTime is smaller
+                    holder.myImageView.setImageResource(R.drawable.ic_baseline_spa_green);
+                } else {
+                    // timeSlotTime is larger
+                    holder.myImageView.setImageResource(R.drawable.ic_baseline_spa_24);
+                }
                 break;
             default:
-                //holder.myImageView.setImageResource(R.drawable.ic_baseline_spa_24);
-                holder.myImageView.setImageResource(R.drawable.ic_android);
+                if (isStopAfterStart) {
+                    // timeSlotTime is smaller
+                    holder.myImageView.setImageResource(R.drawable.ic_baseline_blur_circular_green);
+                } else {
+                    // timeSlotTime is larger
+                    holder.myImageView.setImageResource(R.drawable.ic_baseline_blur_circular_24);
+                }
                 break;
         }
 
