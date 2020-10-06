@@ -23,7 +23,6 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.DialogFragment;
 
 public class CustomDialog extends DialogFragment {
-//public class CustomDialog extends AppCompatDialogFragment {
 
     private EditText editTextStartTime;
     private EditText editTextEndTime;
@@ -31,11 +30,6 @@ public class CustomDialog extends DialogFragment {
     private Spinner spinnerTimeSlotType;
     private CustomDialogListener listener;
     private TextInputLayout textInputLayout;
-/*    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setStyle(DialogFragment.STYLE_NORMAL,R.style.FullScreenDialogTheme);
-    }*/
 
     @NonNull
     @Override
@@ -80,8 +74,7 @@ public class CustomDialog extends DialogFragment {
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                       // String startTime = editTextStartTime.getText().toString();
-                       // String endTime = editTextEndTime.getText().toString();
+
 
                         if(editTextEmail.getText().toString().isEmpty()){
                             //Toast.makeText(getApplicationContext(), "Email Time!", Toast.LENGTH_LONG).show();
@@ -97,35 +90,7 @@ public class CustomDialog extends DialogFragment {
                     }
                 });
 
-        //editTextStartTime = view.findViewById(R.id.edit_start_time);
-        //editTextEndTime = view.findViewById(R.id.edit_end_time);
         editTextEmail = view.findViewById(R.id.TextInputEditTextEmail);
-
-        // start of validation testing
-      /*  final AlertDialog alertDialog = builder.create();
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Boolean isEmpty = false;
-
-                if(editTextEmail.getText().toString().isEmpty()){
-                    textInputLayout.setError("Missing data!");
-                    isEmpty = true;
-                } else {
-                    textInputLayout.setError(null);
-                    isEmpty = false;
-                }
-
-
-
-                if(!isEmpty){
-                    String email = editTextEmail.getText().toString();
-                    listener.applyTexts(email);
-                    alertDialog.dismiss();
-                }
-
-            }
-        }); // end of validation testing   */
 
         return builder.create();
     }

@@ -226,7 +226,7 @@ public class AddTimeSlotActivity extends AppCompatActivity implements AdapterVie
         String item = parent.getItemAtPosition(position).toString();
 
         // create Toast with user selected value
-        Toast.makeText(AddTimeSlotActivity.this, "Selected Item is: \t" + item, Toast.LENGTH_LONG).show();
+        //Toast.makeText(AddTimeSlotActivity.this, "Selected Item is: \t" + item, Toast.LENGTH_LONG).show();
 
         selectedType = item;
         // set user selected value to the TextView

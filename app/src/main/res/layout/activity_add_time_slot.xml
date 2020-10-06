@@ -130,7 +130,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="35dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="175dp"
         android:hint="Description"
         app:counterEnabled="true"
         app:counterMaxLength="90"
@@ -151,7 +151,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="35dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="50dp"
         android:hint="Start time"
         app:errorEnabled="true"
         >
@@ -170,7 +170,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="227dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="35dp"
         android:hint="End time"
         >
@@ -187,11 +187,15 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="339dp"
         android:layout_height="wrap_content"
+
         android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+
         android:layout_centerHorizontal="true"
-        android:hint="Time Slot type"
+        android:layout_marginTop="300dp"
+
         android:layout_marginStart="35dp"
-        android:layout_marginTop="250dp">
+        android:hint="Type">
 
 
         <AutoCompleteTextView
