@@ -104,17 +104,21 @@ public class CustomArrayAdapter extends RecyclerView.Adapter<CustomArrayAdapter.
         final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
         String time = dateFormat.format(new Date());
 
-        LocalTime timeSlotTime = LocalTime.parse(currentItem.getEndTime());
+        LocalTime timeSlotStartTime = LocalTime.parse(currentItem.getStartTime());
+        LocalTime timeSlotEndTime = LocalTime.parse(currentItem.getEndTime());
         LocalTime realTime = LocalTime.parse(time);
 
-        boolean isStopAfterStart = realTime.isAfter(timeSlotTime);
+        boolean isRealTimeAfterStartTime = realTime.isAfter(timeSlotStartTime);
+        boolean isRealTimeAfterEndTime = realTime.isAfter(timeSlotEndTime); // true if realTime is after end time
 
         switch (currentItem.getTimeSlotType()) {
             case "Work":
 
-                if (isStopAfterStart) {
+                if (isRealTimeAfterEndTime) {
                     // timeSlotTime is smaller
                     holder.myImageView.setImageResource(R.drawable.ic_baseline_laptop_windows_green);
+                } else if (!isRealTimeAfterEndTime && isRealTimeAfterStartTime){
+                    holder.myImageView.setImageResource(R.drawable.ic_baseline_laptop_windows_yellow);
                 } else {
                     // timeSlotTime is larger
                     holder.myImageView.setImageResource(R.drawable.ic_baseline_laptop_windows_24);
@@ -122,28 +126,34 @@ public class CustomArrayAdapter extends RecyclerView.Adapter<CustomArrayAdapter.
 
                 break;
             case "Workout":
-                if (isStopAfterStart) {
+                if (isRealTimeAfterEndTime) {
                     // timeSlotTime is smaller
                     holder.myImageView.setImageResource(R.drawable.ic_baseline_fitness_center_green);
-                } else {
+                }  else if (!isRealTimeAfterEndTime && isRealTimeAfterStartTime){
+                    holder.myImageView.setImageResource(R.drawable.ic_baseline_fitness_center_yellow);
+                }  else {
                     // timeSlotTime is larger
                     holder.myImageView.setImageResource(R.drawable.ic_baseline_fitness_center_24);
                 }
                 break;
             case "Meditate":
-                if (isStopAfterStart) {
+                if (isRealTimeAfterEndTime) {
                     // timeSlotTime is smaller
                     holder.myImageView.setImageResource(R.drawable.ic_baseline_spa_green);
+                }  else if (!isRealTimeAfterEndTime && isRealTimeAfterStartTime){
+                    holder.myImageView.setImageResource(R.drawable.ic_baseline_spa_yellow);
                 } else {
                     // timeSlotTime is larger
                     holder.myImageView.setImageResource(R.drawable.ic_baseline_spa_24);
                 }
                 break;
             default:
-                if (isStopAfterStart) {
+                if (isRealTimeAfterEndTime) {
                     // timeSlotTime is smaller
                     holder.myImageView.setImageResource(R.drawable.ic_baseline_blur_circular_green);
-                } else {
+                }  else if (!isRealTimeAfterEndTime && isRealTimeAfterStartTime){
+                    holder.myImageView.setImageResource(R.drawable.ic_baseline_blur_circular_yellow);
+                }  else {
                     // timeSlotTime is larger
                     holder.myImageView.setImageResource(R.drawable.ic_baseline_blur_circular_24);
                 }
