@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,11 +38,11 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
 
     static ArrayList<TimeSlot> timeSlotList = new ArrayList<>();
 
-
     private RecyclerView mRecyclerView;
     static CustomArrayAdapter mAdapter;
     private RecyclerView.LayoutManager mlayoutManager;
 
+    private NotificationHelper mNotificationHelper;
 
     @Override //Menu creation
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -93,7 +94,10 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
            // which will create the subject and body of the email
            // loop through arrayList<timeslot>
            // formatting each object , so it can be easily read
-            openDialog();
+
+            //openDialog();
+            sendNotification("title", "message");
+            
            //sendEmail();
        }
 
@@ -113,6 +117,7 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
         buildRecyclerView();
         buildAddButton();
 
+        mNotificationHelper = new NotificationHelper(this);
         //insertItem(new TimeSlot("12:30","17:00", "Work", "App Save implementation", "des body","03/09/2020"));
     }
 
@@ -322,5 +327,10 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
     @Override
     public void applyTexts(String email) {
         sendEmail(email);
+    }
+
+    public void sendNotification(String title,String message){
+        NotificationCompat.Builder nb = mNotificationHelper.getChannel1Notification(title,message);
+        mNotificationHelper.getManger().notify(1,nb.build());
     }
 }
