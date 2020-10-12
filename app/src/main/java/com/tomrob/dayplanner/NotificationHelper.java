@@ -3,8 +3,10 @@ package com.tomrob.dayplanner;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.Intent;
 import android.os.Build;
 
 import com.tomrob.dayplanner.R;
@@ -35,10 +37,10 @@ public class NotificationHelper extends ContextWrapper {
         channel1.setLightColor(R.color.colorPrimary);
         channel1.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
 
-        getManger().createNotificationChannel(channel1);
+        getManager().createNotificationChannel(channel1);
     }
 
-    public NotificationManager getManger() {
+    public NotificationManager getManager() {
         if(mManager == null){
             mManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         }
@@ -46,11 +48,18 @@ public class NotificationHelper extends ContextWrapper {
         return mManager;
     }
 
-    public NotificationCompat.Builder getChannel1Notification(String title, String message){
+    public NotificationCompat.Builder getChannelNotification(){
+
+        Intent resultIntent = new Intent(this, MainActivity.class);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this,1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+
         return new NotificationCompat.Builder(getApplicationContext(), channel1ID)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setSmallIcon(R.drawable.ic_baseline_update_24);
+                .setContentTitle("Start planning a new day!")
+                //.setContentText("message")
+                .setSmallIcon(R.drawable.ic_baseline_update_24)
+                .setAutoCancel(true)
+                .setContentIntent(resultPendingIntent);
 
     }
 }

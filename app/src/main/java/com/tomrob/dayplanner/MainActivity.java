@@ -8,6 +8,9 @@ import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -97,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
 
             //openDialog();
             sendNotification("title", "message");
-            
+
            //sendEmail();
        }
 
@@ -118,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
         buildAddButton();
 
         mNotificationHelper = new NotificationHelper(this);
+        startAlarm();
         //insertItem(new TimeSlot("12:30","17:00", "Work", "App Save implementation", "des body","03/09/2020"));
     }
 
@@ -330,7 +334,39 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
     }
 
     public void sendNotification(String title,String message){
-        NotificationCompat.Builder nb = mNotificationHelper.getChannel1Notification(title,message);
-        mNotificationHelper.getManger().notify(1,nb.build());
+        NotificationCompat.Builder nb = mNotificationHelper.getChannelNotification();
+        mNotificationHelper.getManager().notify(1,nb.build());
+    }
+
+    private void startAlarm() {
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, AlertReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
+       /* if (c.before(Calendar.getInstance())) {
+            c.add(Calendar.DATE, 1);
+        }*/
+
+        int interval = 1000 * 60 * 1;
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        // set the triggered time to currentHour:08:00 for testing
+        calendar.set(Calendar.HOUR_OF_DAY, 13);
+        //calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MINUTE, 9);
+
+        if (calendar.getTime().compareTo(new Date()) < 0)
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+
+        //alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+
+      /*  alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+                calendar.getTimeInMillis(), 0, pendingIntent);*/
+
+      //AlarmManager.INTERVAL_DAY
+
+        if(alarmManager != null) {
+            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), interval, pendingIntent);
+        }
     }
 }
