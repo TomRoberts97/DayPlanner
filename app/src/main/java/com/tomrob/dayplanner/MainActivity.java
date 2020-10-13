@@ -149,10 +149,25 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
 
         mAdapter.setOnItemCLickListener(new CustomArrayAdapter.OnItemClickListener() {
             @Override
-            public void OnItemClick(int position) {
+            public void OnItemClick(final int position) {
                 // on click working!
+                new AlertDialog.Builder(MainActivity.this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Turn notification on?")
+                        .setMessage("Notify me when the time slot ends?")
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
 
-                Toast.makeText(getApplicationContext(), "selected", Toast.LENGTH_LONG).show();
+
+                                //startAlarm(on TimeSlot EndTime);
+                                startTimeSlotAlarm(position);
+
+                            }
+                        })
+                        .setNegativeButton("Cancel", null)
+                        .show();
+                //Toast.makeText(getApplicationContext(), "selected", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -363,10 +378,41 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
       /*  alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
                 calendar.getTimeInMillis(), 0, pendingIntent);*/
 
-      //AlarmManager.INTERVAL_DAY
+        //AlarmManager.INTERVAL_DAY
 
         if(alarmManager != null) {
             alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), interval, pendingIntent);
         }
     }
+
+
+    private void startTimeSlotAlarm(int position) {
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, AlertReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
+
+        TimeSlot timeSlot = timeSlotList.get(position);
+        String timeString = timeSlot.getEndTime(); //"HH:mm" mm cant have 0 in front
+        String[] separated = timeString.split(":");
+        String hour = separated[0];
+        String min = separated[1];
+
+        hour = hour.replaceAll("^0+(?=.)", "");
+        min = min.replaceAll("^0+(?=.)", "");
+
+        Calendar calendar = Calendar.getInstance();
+        //calendar.setTimeInMillis(System.currentTimeMillis());
+        // set the triggered time to currentHour:08:00 for testing
+        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour));
+        //calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MINUTE, Integer.parseInt(min));
+
+        /*if (calendar.getTime().compareTo(new Date()) < 0)
+            calendar.add(Calendar.DAY_OF_MONTH, 1);*/
+
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        Toast.makeText(getApplicationContext(), "Alarm Set " + hour +":"+ min, Toast.LENGTH_LONG).show();
+
+    }
+
 }
