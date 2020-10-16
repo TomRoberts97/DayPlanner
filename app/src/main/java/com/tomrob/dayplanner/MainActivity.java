@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
          //return false;
 
        if(item.getItemId() == R.id.email_menu_item){
-           Toast.makeText(getApplicationContext(), "Email Time!", Toast.LENGTH_LONG).show();
+           //Toast.makeText(getApplicationContext(), "Email Time!", Toast.LENGTH_LONG).show();
 
            // need to build dialog for capturing email address
            // then need to build sendEmail method
@@ -98,8 +98,8 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
            // loop through arrayList<timeslot>
            // formatting each object , so it can be easily read
 
-            //openDialog();
-            sendNotification("title", "message");
+            openDialog();
+            //sendNotification("title", "message");
 
            //sendEmail();
        }
@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
 
                 new AlertDialog.Builder(MainActivity.this)
                         .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle("Are you sure?")
+                        .setTitle("Remove Time slot?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -288,16 +288,9 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
 
     public void openDialog(){
         CustomDialog customDialog = new CustomDialog();
-
-
-
         customDialog.show(getSupportFragmentManager(), "customDialog");
     }
 
-  /*  @Override
-    public void applyTexts(String email) {
-        insertItem(startTime, endTime);
-    }*/
 
     public void saveData(){
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
@@ -343,7 +336,7 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
 
 
         String message = emailStart + timeSlots;
-        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
 
 
 
