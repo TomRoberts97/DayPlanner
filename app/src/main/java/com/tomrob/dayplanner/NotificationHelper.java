@@ -55,8 +55,8 @@ public class NotificationHelper extends ContextWrapper {
 
 
         return new NotificationCompat.Builder(getApplicationContext(), channel1ID)
-                .setContentTitle("Start planning a new day!")
-                //.setContentText("message")
+                .setContentTitle("Time slot has finished!")
+                .setContentText("Check whats next now!")
                 .setSmallIcon(R.drawable.ic_baseline_update_24)
                 .setAutoCancel(true)
                 .setContentIntent(resultPendingIntent);

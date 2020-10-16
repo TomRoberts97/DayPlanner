@@ -121,21 +121,12 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
         buildAddButton();
 
         mNotificationHelper = new NotificationHelper(this);
-        startAlarm();
-        //insertItem(new TimeSlot("12:30","17:00", "Work", "App Save implementation", "des body","03/09/2020"));
+        //startAlarm();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-    }
-
-    public void createTimeSlotList(){
-
-        timeSlotList.add(new TimeSlot("10:00","12:00", "Work", "App Save implementation", "des body","03/09/2020"));
-        timeSlotList.add(new TimeSlot("13:00","14:00", "Work", "Chest workout", "des body","03/09/2020"));
-
     }
 
     public void buildRecyclerView(){
@@ -148,26 +139,50 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
         mRecyclerView.setAdapter(mAdapter);
 
         mAdapter.setOnItemCLickListener(new CustomArrayAdapter.OnItemClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void OnItemClick(final int position) {
-                // on click working!
-                new AlertDialog.Builder(MainActivity.this)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle("Turn notification on?")
-                        .setMessage("Notify me when the time slot ends?")
-                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+                String time = dateFormat.format(new Date());
+
+                LocalTime realTime = LocalTime.parse(time);
+                LocalTime endTime = LocalTime.parse(timeSlotList.get(position).getEndTime());
+
+                boolean isEndTimeAfterRealTime = endTime.isAfter(realTime);
+
+                if (isEndTimeAfterRealTime) {
+                    // start time is smaller
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setTitle("Turn notification on?")
+                            .setMessage("Notify me when the time slot ends?")
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                    startTimeSlotAlarm(position);
+
+                                }
+                            })
+                            .setNegativeButton("Cancel", null)
+                            .show();
+                } else {
+                    // start time is larger
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setTitle("Alarm cannot be set!")
+                            .setMessage("Time slot is already finished!")
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
 
 
-                                //startAlarm(on TimeSlot EndTime);
-                                startTimeSlotAlarm(position);
+                                }
+                            })
+                            .show();
+                }
 
-                            }
-                        })
-                        .setNegativeButton("Cancel", null)
-                        .show();
-                //Toast.makeText(getApplicationContext(), "selected", Toast.LENGTH_LONG).show();
             }
 
             @Override
