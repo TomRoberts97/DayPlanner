@@ -87,10 +87,9 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
 
            return true;
         }
-         //return false;
 
        if(item.getItemId() == R.id.email_menu_item){
-           //Toast.makeText(getApplicationContext(), "Email Time!", Toast.LENGTH_LONG).show();
+
 
            // need to build dialog for capturing email address
            // then need to build sendEmail method
@@ -152,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
                 boolean isEndTimeAfterRealTime = endTime.isAfter(realTime);
 
                 if (isEndTimeAfterRealTime) {
-                    // start time is smaller
+
                     new AlertDialog.Builder(MainActivity.this)
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .setTitle("Turn notification on?")
@@ -168,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
                             .setNegativeButton("Cancel", null)
                             .show();
                 } else {
-                    // start time is larger
+
                     new AlertDialog.Builder(MainActivity.this)
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .setTitle("Alarm cannot be set!")
@@ -220,10 +219,6 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public static void insertItem(TimeSlot timeSlot){
-        //mAdapter = new CustomArrayAdapter(timeSlotList);
-
-
-        // CHECK THIS! WILL THE RECYCLER VIEW UPDATE WITH THE LIST IN ORDER
 
         // loop through list comparing each TimeSlot objects startTime
         // if the insert items start time is before the other objects
@@ -254,21 +249,14 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
         }
         timeSlotList.add(timeSlot);
         mAdapter.notifyDataSetChanged();
-        //timeSlotList.add(timeSlot);
-        //mAdapter.updateReceiptsList(timeSlotList);
-        //mAdapter.notifyDataSetChanged();
-        //mAdapter.notifyItemInserted(timeSlotList.size() +1 );
 
     }
 
     public static void insertItem(String startTime, String endTime){
 
-        //mAdapter = new CustomArrayAdapter(timeSlotList);
         timeSlotList.add(new TimeSlot(startTime,endTime, "Work", "New Item", "des body","03/09/2020"));
         mAdapter.notifyItemInserted(timeSlotList.size() +1 );
 
-        //mAdapter.notifyDataSetChanged();// without animation which i cant see anyway cos its at the bottom of the view
-        // could try to implement in time order inserting , so the time slots will be in order no matter what
     }
 
 
@@ -317,7 +305,7 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
     public void sendEmail(String email){
 
         String recipient = email; // THIS WILL BE SET BY USER FROM DIALOG
-        String subject = "Todays plan!"; // Date to be added
+        String subject = "Todays plan!";
 
 
 
@@ -381,12 +369,6 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
         if (calendar.getTime().compareTo(new Date()) < 0)
             calendar.add(Calendar.DAY_OF_MONTH, 1);
 
-        //alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-
-      /*  alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
-                calendar.getTimeInMillis(), 0, pendingIntent);*/
-
-        //AlarmManager.INTERVAL_DAY
 
         if(alarmManager != null) {
             alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), interval, pendingIntent);
@@ -409,14 +391,10 @@ public class MainActivity extends AppCompatActivity implements CustomDialog.Cust
         min = min.replaceAll("^0+(?=.)", "");
 
         Calendar calendar = Calendar.getInstance();
-        //calendar.setTimeInMillis(System.currentTimeMillis());
-        // set the triggered time to currentHour:08:00 for testing
-        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour));
-        //calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MINUTE, Integer.parseInt(min));
 
-        /*if (calendar.getTime().compareTo(new Date()) < 0)
-            calendar.add(Calendar.DAY_OF_MONTH, 1);*/
+        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour));
+
+        calendar.set(Calendar.MINUTE, Integer.parseInt(min));
 
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         Toast.makeText(getApplicationContext(), "Alarm Set " + hour +":"+ min, Toast.LENGTH_LONG).show();
